@@ -11,6 +11,9 @@ from colorama import Fore, Back, Style
 import geopandas as gpd
 from sqlalchemy import create_engine
 from geoalchemy2 import Geometry
+from scipy import stats as sc_stats
+from scipy.signal import find_peaks
+from numpy.fft import fft, ifft
 
 ##### File transformation #####
 
@@ -391,7 +394,7 @@ def stat_features(window=[],label="stat"):
     
     dic[label+"_aavg"] = np.sum(window > np.mean(window))
     dic[label+"_peaks"] = len(find_peaks(window)[0])
-    dic[label+"_skew"] = stats.skew(window)
+    dic[label+"_skew"] = sc_stats.skew(window)
     return dic
     
 def get_amplitudes_oneside(signal,cut):
